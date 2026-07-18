@@ -19,7 +19,7 @@ def sync_playlist(cfg, pl):
     tmpl = str(dest / "%(title)s [%(id)s].%(ext)s")
 
     cmd = [
-        "yt-dlp", "--no-progress", "--print-json",
+        "yt-dlp", "--print-json",
         "--extract-audio", f"--audio-format={fmt}",
         f"--audio-quality={quality}",
         "--embed-thumbnail", "--embed-metadata",
@@ -29,7 +29,7 @@ def sync_playlist(cfg, pl):
         "-o", tmpl, pl["url"]
     ]
 
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, stdout=subprocess.PIPE, text=True)
     now = time.strftime("%Y-%m-%dT%H:%M:%S")
 
     tracks = []
@@ -54,6 +54,7 @@ def sync_playlist(cfg, pl):
         "tracks": tracks,
     }
     (dest / "library.json").write_text(json.dumps(library, indent=2))
+    print(f"  Downloaded {len(tracks)} tracks")
 
 def main():
     try:
