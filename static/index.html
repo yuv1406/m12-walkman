@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f2ede0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Walkman</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app" class="walkman">
+  <div class="cap">
+    <div class="transport">
+      <button class="btn" data-action="rewind" aria-label="Rewind">REW</button>
+      <button class="btn" data-action="play" aria-label="Play">PLAY</button>
+      <button class="btn" data-action="forward" aria-label="Fast Forward">F.FWD</button>
+      <button class="btn" data-action="stop" aria-label="Stop">STOP</button>
+      <button class="btn" data-action="pause" aria-label="Pause">PAUSE</button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="wordmark">STEREO WALKMAN</div>
+    <div class="cassette-door" id="cassetteDoor">
+      <div class="smoked-window">
+        <div class="reel left" id="reelL"></div>
+        <div class="tape-arc" id="tapeArc"></div>
+        <div class="reel right" id="reelR"></div>
+      </div>
+      <div class="stripe"></div>
+    </div>
+    <div class="nameplate" id="nameplate">
+      <span id="nameplateText">NO TAPE</span>
+    </div>
+    <div class="lcd" id="lcd">
+      <div class="lcd-track" id="lcdTrack">--</div>
+      <div class="lcd-counter" id="lcdCounter">00:00</div>
+    </div>
+    <div class="eq" id="eq">
+      <div class="eq-bar" style="--h:0.3"></div>
+      <div class="eq-bar" style="--h:0.6"></div>
+      <div class="eq-bar" style="--h:0.9"></div>
+      <div class="eq-bar" style="--h:0.5"></div>
+      <div class="eq-bar" style="--h:0.7"></div>
+      <div class="eq-bar" style="--h:0.4"></div>
+      <div class="eq-bar" style="--h:0.8"></div>
+      <div class="eq-bar" style="--h:0.2"></div>
+    </div>
+  </div>
+
+  <div class="overlay library-face" id="libraryFace">
+    <div class="overlay-header">
+      <span id="libraryTitle">Library</span>
+      <button class="close-btn" data-action="close-library">&times;</button>
+    </div>
+    <div class="track-list" id="trackList"></div>
+  </div>
+
+  <div class="overlay picker" id="picker">
+    <div class="overlay-header">
+      <span>Playlists</span>
+      <button class="close-btn" data-action="close-picker">&times;</button>
+    </div>
+    <div class="picker-list" id="playlistList"></div>
+    <form class="add-playlist" id="addPlaylistForm">
+      <input type="text" id="playlistName" placeholder="Playlist name" required>
+      <input type="url" id="playlistUrl" placeholder="YouTube playlist URL" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div>
+
+<audio id="audio" preload="auto"></audio>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "playlists": [
+    {
+      "id": "main",
+      "name": "Main Mix",
+      "url": "https://www.youtube.com/playlist?list=REPLACE_ME",
+      "dir": "Main"
+    }
+  ],
+  "music_root": "~/storage/shared/Music/Walkman",
+  "audio_format": "mp3",
+  "audio_quality": "192",
+  "server_port": 8080
+}

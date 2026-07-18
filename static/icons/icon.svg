@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#f2ede0"/>
+  <rect x="40" y="60" width="432" height="120" rx="12" fill="#1c1b19"/>
+  <circle cx="160" cy="120" r="30" fill="#2a2828" stroke="#333" stroke-width="4"/>
+  <circle cx="160" cy="120" r="10" fill="#b98a4f"/>
+  <circle cx="352" cy="120" r="30" fill="#2a2828" stroke="#333" stroke-width="4"/>
+  <circle cx="352" cy="120" r="10" fill="#b98a4f"/>
+  <rect x="60" y="200" width="392" height="200" rx="10" fill="#d9d2bf"/>
+  <rect x="80" y="220" width="352" height="140" rx="6" fill="#16161a"/>
+  <rect x="80" y="370" width="352" height="16" rx="4" fill="url(#rainbow)"/>
+  <text x="256" y="470" font-family="sans-serif" font-weight="bold" font-size="28" fill="#22285c" text-anchor="middle" letter-spacing="4">WALKMAN</text>
+  <linearGradient id="rainbow" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#e94b3c"/>
+    <stop offset="20%" stop-color="#f2994a"/>
+    <stop offset="40%" stop-color="#f2c94c"/>
+    <stop offset="60%" stop-color="#6fcf97"/>
+    <stop offset="80%" stop-color="#56ccf2"/>
+    <stop offset="100%" stop-color="#5b6ee1"/>
+  </linearGradient>
+</svg>
