@@ -29,11 +29,15 @@ def sync_playlist(cfg, pl):
         "-o", tmpl, pl["url"]
     ]
 
-    r = subprocess.run(cmd, stdout=subprocess.PIPE, text=True)
+    json_tmp = dest / ".sync_tmp.json"
+    with open(json_tmp, "w") as f:
+        subprocess.run(cmd, stdout=f, text=True)
     now = time.strftime("%Y-%m-%dT%H:%M:%S")
+    raw = json_tmp.read_text()
+    json_tmp.unlink(missing_ok=True)
 
     tracks = []
-    for line in r.stdout.strip().splitlines():
+    for line in raw.strip().splitlines():
         if not line.strip():
             continue
         info = json.loads(line)
@@ -59,7 +63,7 @@ def sync_playlist(cfg, pl):
         "tracks": tracks,
     }
     (dest / "library.json").write_text(json.dumps(library, indent=2))
-    print(f"  Downloaded {len(tracks)} tracks")
+    print(f"  Downloaded {len(tracks)} tracks", flush=True)
 
 def main():
     try:
@@ -71,7 +75,7 @@ def main():
     nok = 0
     for pl in cfg.get("playlists", []):
         try:
-            print(f"Syncing: {pl.get('name', pl['id'])}")
+            print(f"Syncing: {pl.get('name', pl['id'])}", flush=True)
             sync_playlist(cfg, pl)
             print(f"  OK: {pl['id']}")
         except Exception as e:
