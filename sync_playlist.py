@@ -37,12 +37,17 @@ def sync_playlist(cfg, pl):
         if not line.strip():
             continue
         info = json.loads(line)
+        audio_file = f"{info['title']} [{info['id']}].{fmt}"
+        thumb_file = f"{info['title']} [{info['id']}].jpg"
+        if not (dest / audio_file).exists():
+            print(f"  WARN: {audio_file} missing, skipping")
+            continue
         tracks.append({
             "id": info["id"],
             "title": info.get("title", "Unknown"),
             "artist": info.get("uploader", "Unknown"),
-            "file": f"{info['title']} [{info['id']}].{fmt}",
-            "thumbnail": f"{info['title']} [{info['id']}].jpg",
+            "file": audio_file,
+            "thumbnail": thumb_file,
             "duration": info.get("duration", 0),
             "added_at": now,
         })
