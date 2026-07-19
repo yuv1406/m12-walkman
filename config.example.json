@@ -4,9 +4,29 @@
       "id": "17181920",
       "name": "17 18 19 20",
       "url": "https://www.youtube.com/watch?v=iObcSzYLQQw&list=PLGCFTF5gTP7zeGrvDkku1Tc9dEXY0JID5"
+    },
+    {
+      "id": "sunset",
+      "name": "Sunset",
+      "url": "https://www.youtube.com/playlist?list=PLGCFTF5gTP7xmjaMx6Nhb1nltXlT8FeYp"
+    },
+    {
+      "id": "offline",
+      "name": "Offline",
+      "url": "https://www.youtube.com/playlist?list=PLGCFTF5gTP7ySfh27V5_phXb-L6gS47LR"
+    },
+    {
+      "id": "downloads",
+      "name": "Downloads",
+      "url": "https://www.youtube.com/playlist?list=PLGCFTF5gTP7yfcljNcLBZiDyna7r4xTMh"
+    },
+    {
+      "id": "slove",
+      "name": "Slove",
+      "url": "https://www.youtube.com/playlist?list=PLGCFTF5gTP7zSRLqCmkJ3h5PcYbPbWnFB"
     }
   ],
-  "music_root": "~/storage/shared/Music/Walkman",
+  "music_root": "~/storage/music/Walkman",
   "audio_format": "mp3",
   "audio_quality": "192"
 }
