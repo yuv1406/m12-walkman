@@ -1,6 +1,6 @@
-# M12 Walkman
+# Walkman Sync
 
-Retro cassette Walkman PWA that syncs YouTube playlists to local audio files on an Android phone running Termux.
+YouTube playlist downloader that keeps a local music folder updated. Downloads to a single flat directory, skips duplicates via shared archive.
 
 ## Setup
 
@@ -11,24 +11,16 @@ Retro cassette Walkman PWA that syncs YouTube playlists to local audio files on 
    pip install -r requirements.txt
    ```
 
-2. **Configure**: copy `config.example.json` to `config.json` and add at least one playlist URL.
+2. **Configure**: copy `config.example.json` to `config.json` and add playlists.
+   Each playlist downloads to `~/storage/shared/Music/Walkman/` (no subdirectories).
+   If a video appears in multiple playlists, it downloads once (same filename, `--no-overwrites`).
 
 3. **Run a sync**:
    ```
    python sync_playlist.py
    ```
 
-4. **Start the server**:
-   ```
-   python server.py
-   ```
-   Visit `http://localhost:8080` in the phone browser. Add to home screen for PWA.
-
-## PWA install
-
-- Open `http://localhost:8080` in Chrome
-- Tap ⋮ → "Add to Home Screen"
-- App opens full-screen with lock-screen playback controls
+4. **Browse with your player**: use ClassiPod or any local player that reads `~/storage/shared/Music/Walkman/`.
 
 ## Nightly sync (cron)
 
@@ -40,29 +32,23 @@ Add:
 30 2 * * * cd ~/walkman && python sync_playlist.py >> sync.log 2>&1
 ```
 
-## Boot persistence
+## Nightly boot (optional)
 
-Install [Termux:Boot](https://f-droid.org/packages/com.termux.boot/) from F-Droid, then:
+Keep Termux alive overnight:
 
 ```
-cp .termux-boot/start-services.sh ~/.termux/boot/
-chmod +x ~/.termux/boot/start-services.sh
+echo "termux-wake-lock" > ~/.termux/boot/start.sh
+echo "sv-enable crond" >> ~/.termux/boot/start.sh
+chmod +x ~/.termux/boot/start.sh
 ```
 
-## Battery
-
-Set Termux and Tailscale battery to **Unrestricted** and exclude them from Samsung's sleeping apps list (Settings → Device Care → Battery → Background usage limits).
+Install [Termux:Boot](https://f-droid.org/packages/com.termux.boot/) from F-Droid and set it to launch at boot.
 
 ## Layout
 
 ```
 walkman/
-├── sync_playlist.py   # Nightly downloader
-├── server.py          # Flask API server
+├── sync_playlist.py   # Downloads all playlists to Music/Walkman/
 ├── config.json        # Your playlists (gitignored)
-├── static/            # Web UI
-│   ├── index.html, style.css, app.js
-│   ├── manifest.json, sw.js
-│   └── icons/
-└── .termux-boot/      # Boot script template
+└── requirements.txt   # yt-dlp
 ```

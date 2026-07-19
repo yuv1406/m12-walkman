@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, os, subprocess, sys, time
+import json, os, subprocess, sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
@@ -10,13 +10,12 @@ def load_config():
 
 def sync_playlist(cfg, pl):
     root = Path(os.path.expanduser(cfg["music_root"]))
-    dest = root / pl["dir"]
-    dest.mkdir(parents=True, exist_ok=True)
+    root.mkdir(parents=True, exist_ok=True)
 
-    archive = dest / ".archive.txt"
+    archive = root / ".archive.txt"
     fmt = cfg.get("audio_format", "mp3")
     quality = cfg.get("audio_quality", "192")
-    tmpl = str(dest / "%(title)s [%(id)s].%(ext)s")
+    tmpl = str(root / "%(title)s [%(id)s].%(ext)s")
 
     cmd = [
         "yt-dlp", "--print-json",
@@ -29,10 +28,9 @@ def sync_playlist(cfg, pl):
         "-o", tmpl, pl["url"]
     ]
 
-    json_tmp = dest / ".sync_tmp.json"
+    json_tmp = root / ".sync_tmp.json"
     with open(json_tmp, "w") as f:
         subprocess.run(cmd, stdout=f, text=True)
-    now = time.strftime("%Y-%m-%dT%H:%M:%S")
     raw = json_tmp.read_text()
     json_tmp.unlink(missing_ok=True)
 
@@ -43,7 +41,7 @@ def sync_playlist(cfg, pl):
         info = json.loads(line)
         audio_file = f"{info['title']} [{info['id']}].{fmt}"
         thumb_file = f"{info['title']} [{info['id']}].jpg"
-        if not (dest / audio_file).exists():
+        if not (root / audio_file).exists():
             print(f"  WARN: {audio_file} missing, skipping")
             continue
         tracks.append({
@@ -53,16 +51,9 @@ def sync_playlist(cfg, pl):
             "file": audio_file,
             "thumbnail": thumb_file,
             "duration": info.get("duration", 0),
-            "added_at": now,
+            "added_at": sys.platform,
         })
 
-    library = {
-        "playlist_id": pl["id"],
-        "playlist_name": pl["name"],
-        "generated_at": now,
-        "tracks": tracks,
-    }
-    (dest / "library.json").write_text(json.dumps(library, indent=2))
     print(f"  Downloaded {len(tracks)} tracks", flush=True)
 
 def main():
