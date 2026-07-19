@@ -18,7 +18,7 @@ def sync_playlist(cfg, pl):
     tmpl = str(root / "%(title)s [%(id)s].%(ext)s")
 
     cmd = [
-        "yt-dlp", "--print-json",
+        "yt-dlp", "--no-warnings", "--print-json",
         "--extract-audio", f"--audio-format={fmt}",
         f"--audio-quality={quality}",
         "--embed-thumbnail", "--embed-metadata",
